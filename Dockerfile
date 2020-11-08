@@ -1,9 +1,9 @@
-FROM tensorflow/tensorflow:latest-gpu-py3-jupyter
+FROM tensorflow/tensorflow:latest-gpu-jupyter
 
 ARG USER_ID=1000
 ARG GROUP_ID=1000
 
-RUN groupadd -g ${GROUP_ID} sci-user &&\
+RUN groupadd -o -g ${GROUP_ID} sci-user &&\
     adduser -u ${USER_ID} --gid ${GROUP_ID} --disabled-password --gecos "" sci-user &&\
     chown --changes --silent --no-dereference --recursive ${USER_ID}:${GROUP_ID} /tf
 
