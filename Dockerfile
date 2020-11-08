@@ -10,8 +10,10 @@ RUN groupadd -o -g ${GROUP_ID} sci-user &&\
 RUN apt-get update && apt-get install -y --no-install-recommends sudo
 RUN echo "sci-user ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/sci_priviledge
 
+RUN pip install jupyterlab pandas numpy
+
 USER sci-user
 RUN mkdir /home/sci-user/notebooks
 WORKDIR /home/sci-user
 
-CMD ["bash", "-c", "source /etc/bash.bashrc && jupyter notebook --notebook-dir=/home/sci-user/notebooks --ip 0.0.0.0 --no-browser --allow-root --NotebookApp.token=''"]
+CMD ["bash", "-c", "source /etc/bash.bashrc && jupyter lab --notebook-dir=/home/sci-user/notebooks --ip 0.0.0.0 --no-browser --allow-root --NotebookApp.token=''"]
